@@ -4,7 +4,7 @@
     <title>BookHub</title>
     <script>
         async function searchBooks(query) {
-            const response = await fetch(`/api/books/?q=${query}`);
+            const response = await fetch(`/books/?search=${query}`);
             const data = await response.json();
             displayResults(data);
         }

@@ -12,14 +12,14 @@ class GoogleBooksAPIView(APIView):
     @swagger_auto_schema(
         operation_description="Search books using Google Books API",
         manual_parameters=[
-            openapi.Parameter('q', openapi.IN_QUERY, description="Query string for searching books", type=openapi.TYPE_STRING)
+            openapi.Parameter('search', openapi.IN_QUERY, description="Query string for searching books", type=openapi.TYPE_STRING)
         ],
         responses={200: "Successful Response"}
     )
     def get(self, request, *args, **kwargs):
-        query = request.GET.get('q')
+        query = request.GET.get('search')
         if not query:
-            return Response({"error": "Query parameter 'q' is required"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Query parameter 'search' is required"}, status=status.HTTP_400_BAD_REQUEST)
         
         response = requests.get(f'https://www.googleapis.com/books/v1/volumes?q={query}')
         if response.status_code != 200:
