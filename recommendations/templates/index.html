@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BookHub</title>
+    <script>
+        async function searchBooks(query) {
+            const response = await fetch(`/api/books/?q=${query}`);
+            const data = await response.json();
+            displayResults(data);
+        }
+
+        function displayResults(books) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            books.forEach(book => {
+                const bookDiv = document.createElement('div');
+                bookDiv.textContent = book.volumeInfo.title;
+                resultsDiv.appendChild(bookDiv);
+            });
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('search-input').value;
+            searchBooks(query);
+        }
+    </script>
+</head>
+<body>
+    <h1>BookHub</h1>
+    <input type="text" id="search-input" oninput="handleSearch()" placeholder="Search for books...">
+    <div id="results"></div>
+</body>
+</html>
